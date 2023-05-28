@@ -23,6 +23,18 @@ function registerUser($name, $email, $password)
     global $pdo;
 
     try {
+        // Check if the email already exists
+        $existingEmailStatement = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+        $existingEmailStatement->bindParam(':email', $email);
+        $existingEmailStatement->execute();
+
+        $emailExists = $existingEmailStatement->fetchColumn();
+
+        if ($emailExists) {
+            echo "<script> alert('email already exists');</script>";
+            return false;
+        }
+
         // Prepare the SQL statement
         $statement = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
 
@@ -45,7 +57,6 @@ function registerUser($name, $email, $password)
     }
 }
 
-// Usage example
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
