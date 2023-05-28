@@ -1,2 +1,4 @@
 # PHP_CRUD_APP
-Run the to_do_task_management.sql in your localhost mysql database file before running the PHP File
+>Create a databse and name it to_do_task_management
+>Run the to_do_task_management.sql in your localhost mysql database
+>Run the index.php file to start the application
